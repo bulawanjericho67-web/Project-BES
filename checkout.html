@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Review Payment and Address | PV:A Store</title>
+    <link rel="stylesheet" href="reveal.css" />
+    <script src="reveal.js" defer></script>
+    <style>
+      :root {
+        --red: #b90404;
+        --deep-red: #260d0d;
+        --ink: #171717;
+        --muted: #f5dede;
+        --line: rgba(255, 255, 255, 0.32);
+        --serif: "Fraunces", Georgia, serif;
+        --sans: "DM Sans", Arial, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-width: 0;
+        overflow-x: hidden;
+        background: linear-gradient(#050505, #260d0d, #8e1313);
+        color: #ffffff;
+        font-family: var(--sans);
+      }
+      .checkout-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px clamp(20px, 6vw, 88px);
+      }
+      .checkout-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+      }
+      .checkout-logo img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+      }
+      .checkout-logo span {
+        color: #ffb1a8;
+      }
+      .back-link {
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .back-link:hover {
+        color: #ffb1a8;
+      }
+      main {
+        width: min(1120px, calc(100% - 40px));
+        margin: 30px auto 80px;
+      }
+      .eyebrow {
+        color: #ffb1a8;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 12px 0 36px;
+        font-family: var(--serif);
+        font-size: clamp(2.7rem, 6vw, 5.5rem);
+        line-height: 0.95;
+      }
+      .checkout-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+        gap: 20px;
+        align-items: start;
+      }
+      .checkout-panel {
+        padding: clamp(22px, 4vw, 42px);
+        background: rgba(0, 0, 0, 0.28);
+        border: 1px solid var(--line);
+      }
+      .checkout-panel h2 {
+        margin-bottom: 24px;
+        font-family: var(--serif);
+        font-size: 1.65rem;
+      }
+      form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+      .field.full {
+        grid-column: 1 / -1;
+      }
+      label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+      input {
+        width: 100%;
+        padding: 13px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.96);
+        color: var(--ink);
+        font: inherit;
+      }
+      input:focus {
+        outline: 2px solid #ffb1a8;
+        outline-offset: 2px;
+      }
+      .place-order {
+        grid-column: 1 / -1;
+        margin-top: 8px;
+        padding: 15px;
+        border: 0;
+        background: #ffffff;
+        color: var(--deep-red);
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .place-order:hover {
+        background: #ffb1a8;
+      }
+      .order-list {
+        display: grid;
+        gap: 14px;
+      }
+      .order-item {
+        display: grid;
+        grid-template-columns: 58px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .order-item img {
+        width: 58px;
+        height: 66px;
+        object-fit: cover;
+      }
+      .order-item h3 {
+        font-family: var(--serif);
+        font-size: 1rem;
+      }
+      .order-item p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+      .order-price {
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .order-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 2px solid #ffffff;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+      .empty-order {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      @media (max-width: 760px) {
+        .checkout-header {
+          padding-inline: 20px;
+        }
+        main {
+          width: min(100% - 32px, 560px);
+          margin-top: 20px;
+        }
+        .checkout-layout {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          margin-bottom: 28px;
+        }
+      }
+      @media (max-width: 430px) {
+        form {
+          grid-template-columns: 1fr;
+        }
+        .field.full {
+          grid-column: auto;
+        }
+        .checkout-panel {
+          padding: 20px 16px;
+        }
+        .checkout-panel h2 {
+          font-size: 1.45rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="checkout-header">
+      <a class="checkout-logo" href="ecommerce.html"
+        ><img src="IMAGES/Logo.jpg" alt="PV:A Store logo" />PV<span>:</span>A / STORE</a
+      ><a class="back-link" href="ecommerce.html"
+        ><i class="ri-arrow-left-line"></i> Back to store</a
+      >
+    </header>
+    <main>
+      <p class="eyebrow">Almost there</p>
+      <h1>Review payment<br />and address.</h1>
+      <div class="checkout-layout">
+        <section class="checkout-panel" aria-labelledby="details-title">
+          <h2 id="details-title">Delivery details</h2>
+          <form id="checkout-form">
+            <div class="field">
+              <label for="full-name">Full name</label
+              ><input
+                id="full-name"
+                name="fullName"
+                type="text"
+                autocomplete="name"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label
+              ><input
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                required
+              />
+            </div>
+            <div class="field full">
+              <label for="email">Email address</label
+              ><input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="field full">
+              <label for="address">Street address</label
+              ><input
+                id="address"
+                name="address"
+                type="text"
+                autocomplete="street-address"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="city">City / Municipality</label
+              ><input
+                id="city"
+                name="city"
+                type="text"
+                autocomplete="address-level2"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="province">Province</label
+              ><input
+                id="province"
+                name="province"
+                type="text"
+                autocomplete="address-level1"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="postal-code">Postal code</label
+              ><input
+                id="postal-code"
+                name="postalCode"
+                type="text"
+                inputmode="numeric"
+                autocomplete="postal-code"
+                required
+              />
+            </div>
+            <button class="place-order" type="submit">
+              Place order <i class="ri-arrow-right-line"></i>
+            </button>
+          </form>
+        </section>
+        <aside class="checkout-panel" aria-labelledby="summary-title">
+          <h2 id="summary-title">Your order</h2>
+          <div class="order-list" id="order-list"></div>
+          <div class="order-total">
+            <span>Total</span><span id="order-total">PHP 0</span>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <script>
+      const orderList = document.querySelector("#order-list");
+      const orderTotal = document.querySelector("#order-total");
+      const checkoutForm = document.querySelector("#checkout-form");
+      let orderItems = [];
+
+      try {
+        orderItems =
+          JSON.parse(sessionStorage.getItem("pvaCheckoutCart")) || [];
+      } catch (error) {
+        orderItems = [];
+      }
+
+      function renderOrder() {
+        if (!orderItems.length) {
+          orderList.innerHTML =
+            '<p class="empty-order">Your order is empty. Return to the store to add an item.</p>';
+          orderTotal.textContent = "PHP 0";
+          checkoutForm.querySelector("button").disabled = true;
+          return;
+        }
+        orderList.innerHTML = orderItems
+          .map(
+            (item) =>
+              `<div class="order-item"><img src="${item.image}" alt="${item.name}" /><div><h3>${item.name}</h3><p>Qty: ${item.quantity} x PHP ${item.price}</p></div><span class="order-price">PHP ${item.quantity * item.price}</span></div>`,
+          )
+          .join("");
+        orderTotal.textContent = `PHP ${orderItems.reduce((sum, item) => sum + item.quantity * item.price, 0)}`;
+      }
+
+      checkoutForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (!sessionStorage.getItem("currentUser")) {
+          alert("Please log in before ordering.");
+          window.location.href = "PT.html";
+          return;
+        }
+        if (!orderItems.length) return;
+        const total = orderItems.reduce(
+          (sum, item) => sum + item.quantity * item.price,
+          0,
+        );
+        alert(
+          `Thank you, ${checkoutForm.elements.fullName.value}!\nYour order total is PHP ${total}.`,
+        );
+        sessionStorage.removeItem("pvaCheckoutCart");
+        window.location.href = "ecommerce.html";
+      });
+
+      renderOrder();
+    </script>
+  </body>
+</html>

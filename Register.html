@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Login System</title>
+    <link rel="stylesheet" href="Ptcss.css" />
+    <link rel="stylesheet" href="reveal.css" />
+    <script src="PTJS.js" defer></script>
+    <script src="reveal.js" defer></script>
+  </head>
+  <body class="bgcolor">
+    <form class="logindes">
+      <h1 class="text-center text-white pt-5">Register:</h1>
+
+      <div class="Field">
+        <input
+          type="text"
+          id="Username"
+          name="Username"
+          placeholder=" "
+          required
+        />
+        <label for="Username">Username</label>
+      </div>
+
+      <div class="Field">
+        <input
+          type="password"
+          id="Password"
+          name="Password"
+          placeholder=" "
+          required
+        />
+        <label for="Password">Password</label>
+      </div>
+
+      <div class="Field">
+        <input type="email" id="Email" name="Email" placeholder=" " required />
+        <label for="Email">Email</label>
+      </div>
+
+      <button
+        type="button"
+        id="register-button"
+        onclick="Register()"
+        class="formbuttons"
+      >
+        Register
+      </button>
+      <button type="button" onclick="BackLogIn()" class="formbuttons">
+        Back To Log In
+      </button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Login System</title>
+    <link rel="stylesheet" href="Ptcss.css" />
+    <link rel="stylesheet" href="reveal.css" />
+    <script src="PTJS.js" defer></script>
+    <script src="reveal.js" defer></script>
+  </head>
+  <body class="bgcolor">
+    <form class="logindes">
+      <div class="brandmark" aria-hidden="true"><span>P</span><span>V</span><span>:</span><span>A</span></div>
+      <p class="eyebrow">Welcome back</p>
+      <h1>Log in to your account</h1>
+      <p class="intro">Pick up where you left off.</p>
+
+      <div class="Field">
+        <input
+          type="text"
+          id="Username"
+          name="Username"
+          placeholder=" "
+          required
+        />
+        <label for="Username">Username</label>
+      </div>
+
+      <div class="Field">
+        <input type="email" id="Email" name="Email" placeholder=" " required />
+        <label for="Email">Email</label>
+      </div>
+
+      <div class="Field">
+        <input
+          type="password"
+          id="Password"
+          name="Password"
+          placeholder=" "
+          required
+        />
+        <label for="Password">Password</label>
+      </div>
+
+      <div class="Field forgotpass-wrap">
+        <label for="ForgotPass">Forgot Password?</label>
+        <a href="ForgotPass.html" class="forgotpass">Click Here</a>
+      </div>
+      <button type="button" onclick="LogIn()" class="formbuttons">
+        Log In
+      </button>
+      <div class="register-prompt">
+        <span>New to PV: A?</span>
+        <button type="button" onclick="ClickRegister()" class="register-link">
+          Create an account
+        </button>
+      </div>
+      <p class="secure-note"><span aria-hidden="true">&#9670;</span> Your details stay private</p>
+    </form>
+  </body>
+</html>

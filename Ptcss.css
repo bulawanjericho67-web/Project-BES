@@ -1,0 +1,345 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.bgcolor {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(185, 4, 4, 0.2), transparent 28%),
+    radial-gradient(circle at 88% 86%, rgba(112, 18, 18, 0.25), transparent 32%),
+    #090909;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.logindes {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  text-align: center;
+  width: min(100%, 460px);
+  padding: 38px 40px 28px;
+  background: rgba(22, 14, 15, 0.94);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  border-radius: 4px;
+}
+
+.brandmark {
+  display: inline-flex;
+  gap: 2px;
+  color: #fff4f2;
+  background: #b90404;
+  padding: 10px 11px 9px;
+  font: bold 18px Georgia, serif;
+  letter-spacing: -2px;
+  transform: rotate(-5deg);
+  box-shadow: 5px 5px 0 #3a0b0b;
+}
+
+.brandmark span:last-child {
+  margin-left: 1px;
+}
+
+.eyebrow {
+  color: #ef766a;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 28px 0 8px;
+  text-transform: uppercase;
+}
+
+.logindes h1 {
+  font: bold clamp(1.8rem, 4vw, 2.35rem) Georgia, serif;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.intro {
+  color: #c7aaa7;
+  margin: 10px 0 28px;
+  font-size: 14px;
+}
+
+.formbuttons {
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  background: #b90404;
+  border: 0;
+  border-radius: 3px;
+  padding: 14px;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 6px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  box-shadow: 0 7px 0 #610606;
+}
+
+.formbuttons:hover {
+  transform: translateY(-1px);
+  background: #d52a22;
+}
+
+.verification {
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  margin-top: 22px;
+  padding-top: 18px;
+}
+
+.verification h2 {
+  color: #fff;
+  font-size: 1.25rem;
+  margin: 0 0 8px;
+}
+
+.verification p {
+  color: #ffe5e5;
+  margin: 0 0 14px;
+}
+
+.code-field {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.code-field > label {
+  display: block;
+  color: #c7aaa7;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.code-inputs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  flex: 1;
+}
+
+.code-send-row {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+
+.send-code-button {
+  flex: 0 0 auto;
+  padding: 13px 14px;
+  border: 1px solid #ef766a;
+  border-radius: 3px;
+  background: transparent;
+  color: #ef766a;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.send-code-button:hover {
+  background: #610606;
+  color: #fff;
+}
+
+.code-input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 4px;
+  border: 1px solid #6b4a49;
+  border-radius: 3px;
+  background: #28191a;
+  color: #fff;
+  font-size: 22px;
+  text-align: center;
+}
+
+.code-input:focus {
+  border-color: #ef766a;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(239, 118, 106, 0.2);
+}
+
+.Field {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;
+  min-height: 76px;
+}
+
+.Field input {
+  width: 100%;
+  padding: 18px 16px 12px;
+  font-size: 17px;
+  border: 1px solid #6b4a49;
+  border-radius: 3px;
+  outline: none;
+  background-color: #28191a;
+  color: #fff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.Field input:focus {
+  border-color: #ef766a;
+  box-shadow: 0 0 0 2px rgba(239, 118, 106, 0.2);
+}
+
+.Field input::placeholder {
+  color: transparent;
+}
+
+.Field label {
+  position: absolute;
+  left: 16px;
+  top: 18px;
+  font-size: 17px;
+  color: #c7aaa7;
+  pointer-events: none;
+  transition:
+    top 0.2s ease,
+    font-size 0.2s ease,
+    color 0.2s ease;
+  background: #28191a;
+  padding: 0 4px;
+}
+
+.Field input:focus + label,
+.Field input:not(:placeholder-shown) + label {
+  top: -6px;
+  font-size: 11px;
+  color: #ef766a;
+}
+
+.forgotpass {
+  color: #ef766a;
+  text-decoration: none;
+}
+
+.forgotpass-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: auto;
+  margin: 2px 0 14px;
+  text-align: center;
+}
+
+.forgotpass-wrap label {
+  position: static;
+  background: transparent;
+  color: #c7aaa7;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.register-prompt {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  color: #c7aaa7;
+  font-size: 14px;
+  margin-top: 26px;
+}
+
+.register-link {
+  background: none;
+  border: 0;
+  color: #ef766a;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.secure-note {
+  color: #8f706e;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  margin: 28px 0 0;
+}
+
+.secure-note span {
+  color: #d52a22;
+  font-size: 9px;
+  margin-right: 4px;
+}
+
+@media (max-width: 768px) {
+  .bgcolor {
+    padding: 12px;
+  }
+
+  .logindes {
+    padding: 30px 26px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bgcolor {
+    padding: 10px;
+    align-items: flex-start;
+  }
+
+  .logindes {
+    width: 100%;
+    padding: 26px 18px 22px;
+  }
+
+  .Field {
+    margin-bottom: 16px;
+    min-height: 68px;
+  }
+
+  .Field input {
+    padding: 15px 12px 10px;
+    font-size: 15px;
+  }
+
+  .Field label {
+    left: 12px;
+    top: 15px;
+    font-size: 15px;
+  }
+
+  .Field input:focus + label,
+  .Field input:not(:placeholder-shown) + label {
+    top: -5px;
+    font-size: 11px;
+  }
+
+  .formbuttons {
+    font-size: 15px;
+    padding: 11px;
+  }
+
+  .register-prompt {
+    flex-wrap: wrap;
+  }
+
+  .code-send-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .send-code-button {
+    width: 100%;
+  }
+}

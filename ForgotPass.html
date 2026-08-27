@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Login System</title>
+    <link rel="stylesheet" href="Ptcss.css" />
+    <link rel="stylesheet" href="reveal.css" />
+    <script src="PTJS.js" defer></script>
+    <script src="reveal.js" defer></script>
+  </head>
+  <body class="bgcolor">
+    <form class="logindes">
+      <h1 class="text-center text-white pt-5">Forgot Password:</h1>
+
+      <div class="Field">
+        <input type="email" id="Email" name="Email" placeholder=" " required />
+        <label for="Email">Email</label>
+      </div>
+
+      <section id="verification" class="verification" data-type="reset">
+        <h2>Verify your email</h2>
+        <p id="verification-message" role="status"></p>
+        <div class="code-field">
+          <label for="verification-code-1">6-digit verification code</label>
+          <div class="code-send-row">
+            <div class="code-inputs">
+              <input id="verification-code-1" class="code-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="one-time-code" aria-label="Verification digit 1" />
+              <input id="verification-code-2" class="code-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Verification digit 2" />
+              <input id="verification-code-3" class="code-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Verification digit 3" />
+              <input id="verification-code-4" class="code-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Verification digit 4" />
+              <input id="verification-code-5" class="code-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Verification digit 5" />
+              <input id="verification-code-6" class="code-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Verification digit 6" />
+            </div>
+            <button type="button" onclick="ForgotPassword()" class="send-code-button">
+              Send Code
+            </button>
+          </div>
+        </div>
+        <div class="Field">
+          <input
+            type="password"
+            id="NewPassword"
+            placeholder=" "
+            autocomplete="new-password"
+          />
+          <label for="NewPassword">New password</label>
+        </div>
+        <button type="button" onclick="verifyCode()" class="formbuttons">
+          Verify &amp; Reset
+        </button>
+      </section>
+      <button type="button" onclick="BackLogIn()" class="formbuttons">
+        Back To Log In
+      </button>
+    </form>
+  </body>
+</html>
