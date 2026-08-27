@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>PV:A Store | Civic Goods</title>
+    <link rel="stylesheet" href="reveal.css" />
+    <script src="reveal.js" defer></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 25px 9%;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 99;
+      }
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 25px;
+        color: #333;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .logo img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border: 2px solid #333;
+        border-radius: 50%;
+      }
+      #cart-icon {
+        position: relative;
+        display: flex;
+        font-size: 30px;
+        cursor: pointer;
+      }
+      #cart-icon .cart-item-count {
+        position: absolute;
+        top: 0;
+        right: -6px;
+        width: 20px;
+        height: 20px;
+        background: red;
+        border-radius: 50%;
+        font-size: 12px;
+        color: rgb(0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+      }
+      .shop {
+        padding: 100px 9% 30px;
+      }
+      .section-title {
+        font-size: 35px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      .product-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+      .product-box .img-box {
+        display: flex;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .img-box img {
+        width: 100%;
+        transition: 0.5s;
+      }
+      .img-box:hover img {
+        transform: scale(1.1);
+      }
+      .shop {
+        padding: 35px;
+      }
+
+      .section-title {
+        font-size: 35px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      .product-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+      }
+      .product-box .img-box {
+        display: flex;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .img-box img {
+        width: 100%;
+        transition: 0.5s;
+        cursor: pointer;
+      }
+      .img-box:hover img {
+        transform: scale(1.1);
+      }
+      .product-box .product-title {
+        font-size: 20px;
+        margin-top: 10px;
+      }
+
+      .product-box .price-and-cart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .price-and-cart .price {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .price-and-cart .add-cart {
+        padding: 10px;
+        background: red;
+        border-radius: 6px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .cart {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 360px;
+        height: 100%;
+        background: #fff;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        padding: 65px 20px 40px;
+        z-index: 100;
+        overflow: auto;
+        transition: 0.5s;
+      }
+      .cart.active {
+        right: 0;
+      }
+      .cart-title {
+        text-align: center;
+        font-size: 30px;
+      }
+      .cart-box {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .cart-box img {
+        width: 100px;
+        height: 100px;
+        border-radius: 6px;
+        object-fit: cover;
+        margin-right: 20px;
+      }
+      .cart-detail {
+        display: grid;
+        gap: 8px;
+        margin-right: auto;
+      }
+      .cart-product-title {
+        font-size: 18px;
+        line-height: 1;
+      }
+      .cart-price {
+        font-weight: 500;
+      }
+      .cart-quantity {
+        display: flex;
+        width: 100px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+      .cart-quantity button {
+        width: 30px;
+        height: 30px;
+        border: none;
+        background: #f0f0f0;
+        cursor: pointer;
+      }
+      .cart-quantity #decrement {
+        color: black;
+      }
+      .cart-quantity .number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        cursor: default;
+      }
+      .cart-remove {
+        font-size: 20px;
+        color: red;
+        cursor: pointer;
+      }
+      .total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        border-top: 1px solid #ccc;
+        font-size: 18px;
+      }
+      .total-price {
+        margin-right: 10px;
+        font-weight: 500;
+      }
+      .btn-buy {
+        display: block;
+        padding: 10px 20px;
+        background: red;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        color: white;
+        margin: 20px auto 0;
+        cursor: pointer;
+      }
+      #cart-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 25px;
+        cursor: pointer;
+      }
+
+      :root {
+        --ink: #ffffff;
+        --muted: #f5dede;
+        --paper: #260d0d;
+        --card: #1c1112;
+        --red: #b90404;
+        --line: rgba(255, 255, 255, 0.3);
+        --serif: "Fraunces", Georgia, serif;
+        --sans: "DM Sans", Arial, sans-serif;
+      }
+      body {
+        min-width: 0;
+        overflow-x: hidden;
+        background: linear-gradient(#050505, #260d0d, #8e1313);
+        color: var(--ink);
+        font-family: var(--sans);
+      }
+      img {
+        max-width: 100%;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.24;
+        background-image: radial-gradient(#6b4a49 0.7px, transparent 0.7px);
+        background-size: 9px 9px;
+      }
+      body > header,
+      body > .cart,
+      body > .shop {
+        display: none;
+      }
+      .store-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 76px;
+        padding: 0 clamp(22px, 6vw, 88px);
+        background: rgba(22, 9, 9, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+      }
+      .store-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        font-size: 1.08rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+      }
+      .store-logo img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+      }
+      .store-logo span {
+        color: #ef766a;
+      }
+      .store-nav {
+        position: relative;
+        margin-left: auto;
+        margin-right: clamp(22px, 5vw, 70px);
+      }
+      .store-nav::after {
+        display: none;
+      }
+      .store-nav select {
+        min-width: 165px;
+        padding: 11px 36px 11px 14px;
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        appearance: none;
+        background: #ffffff;
+        color: #000000;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .store-nav select:focus {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
+      }
+
+      .store-cart {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid #ffffff;
+        border-radius: 50%;
+        background: transparent;
+        color: #ffffff;
+        font-size: 1.15rem;
+      }
+      .store-count {
+        position: absolute;
+        top: -5px;
+        right: -4px;
+        display: grid;
+        place-items: center;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--red);
+        color: white;
+        font-size: 0.68rem;
+        font-weight: 700;
+      }
+      .store-hero {
+        display: grid;
+        grid-template-columns: 1.04fr 0.96fr;
+        max-width: 1240px;
+        min-height: 380px;
+        margin: 0 auto;
+        padding: clamp(62px, 9vw, 118px) clamp(22px, 6vw, 88px) 72px;
+        gap: 52px;
+        align-items: center;
+      }
+      .store-eyebrow {
+        color: var(--red);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .store-hero h1 {
+        max-width: 650px;
+        margin: 15px 0 20px;
+        font-family: var(--serif);
+        font-size: clamp(3.6rem, 8vw, 7rem);
+        line-height: 0.91;
+        letter-spacing: -0.04em;
+      }
+      .store-hero h1 em {
+        color: var(--red);
+        font-style: normal;
+      }
+      .store-copy {
+        max-width: 390px;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+      .store-art {
+        position: relative;
+        min-height: 285px;
+        overflow: hidden;
+        background: var(--red);
+      }
+      .store-art img {
+        width: 100%;
+        height: 100%;
+        min-height: 285px;
+        display: block;
+        object-fit: cover;
+        mix-blend-mode: multiply;
+        filter: saturate(0.75) contrast(1.1);
+      }
+      .store-art::after {
+        content: "EST. 2026";
+        position: absolute;
+        right: 18px;
+        bottom: 15px;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+      }
+      .store-products {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 clamp(22px, 6vw, 88px) 90px;
+      }
+      .store-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+      }
+      .store-heading h2 {
+        font-family: var(--serif);
+        font-size: 2rem;
+      }
+      .store-heading p {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+      .store-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .store-product {
+        min-width: 0;
+      }
+      .store-image {
+        position: relative;
+        aspect-ratio: 1 / 1.08;
+        overflow: hidden;
+        background: #3a2021;
+      }
+      .store-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .store-product:hover .store-image img {
+        transform: scale(1.045);
+      }
+      .store-tag {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 6px 8px;
+        background: var(--card);
+        color: #ef766a;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .store-product h3 {
+        margin-top: 13px;
+        font-family: var(--serif);
+        font-size: 1.25rem;
+      }
+      .store-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 8px;
+      }
+      .store-price {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .store-add {
+        display: grid;
+        place-items: center;
+        width: 35px;
+        height: 35px;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+        background: transparent;
+      }
+      .store-add:hover {
+        background: var(--ink);
+        color: white;
+      }
+      .store-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        width: min(420px, 100%);
+        height: 100%;
+        padding: 30px 25px;
+        background: linear-gradient(#050505, #260d0d, #8e1313);
+        color: #ffffff;
+        box-shadow: -14px 0 45px rgba(0, 0, 0, 0.35);
+        transform: translateX(105%);
+        transition: transform 0.35s ease;
+      }
+      .store-drawer.active {
+        transform: translateX(0);
+      }
+      .drawer-head {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      }
+      .drawer-head h2 {
+        font-family: var(--serif);
+        font-size: 2rem;
+      }
+      .drawer-close {
+        border: 0;
+        background: none;
+        color: #ffffff;
+        font-size: 1.5rem;
+      }
+      .drawer-body {
+        flex: 1;
+        overflow: auto;
+      }
+      .drawer-item {
+        display: grid;
+        grid-template-columns: 76px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      }
+      .drawer-item img {
+        width: 76px;
+        height: 88px;
+        object-fit: cover;
+      }
+      .drawer-detail {
+        display: grid;
+        gap: 7px;
+      }
+      .drawer-detail h3 {
+        font-family: var(--serif);
+        font-size: 1rem;
+      }
+      .drawer-detail p {
+        color: #f5dede;
+        font-size: 0.85rem;
+      }
+      .drawer-quantity {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #f5dede;
+        font-size: 0.85rem;
+      }
+      .drawer-quantity button,
+      .drawer-remove {
+        border: 0;
+        background: none;
+        color: #ffffff;
+      }
+      .drawer-quantity button {
+        width: 21px;
+        height: 21px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      .drawer-remove {
+        font-size: 1.1rem;
+      }
+      .drawer-empty {
+        padding: 40px 0;
+        color: #f5dede;
+        text-align: center;
+      }
+      .drawer-footer {
+        padding-top: 20px;
+      }
+      .drawer-total {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+      }
+      .drawer-buy {
+        width: 100%;
+        margin-top: 18px;
+        padding: 14px;
+        border: 0;
+        background: #ffffff;
+        color: #610606;
+        font-weight: 700;
+      }
+      .drawer-buy:hover {
+        background: #f5dede;
+      }
+      @media (max-width: 1050px) {
+        .store-header {
+          padding-inline: 32px;
+        }
+        .store-hero,
+        .store-products {
+          padding-inline: 32px;
+        }
+        .store-hero {
+          gap: 32px;
+        }
+      }
+      @media (max-width: 720px) {
+        .store-header {
+          height: 66px;
+        }
+        .store-nav {
+          margin-right: 14px;
+        }
+        .store-nav select {
+          min-width: 145px;
+        }
+        .store-hero {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding: 62px 22px 64px;
+        }
+        .store-art,
+        .store-art img {
+          min-height: 230px;
+        }
+        .store-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 24px 12px;
+        }
+        .store-heading p {
+          display: none;
+        }
+        .store-products {
+          padding-inline: 22px;
+        }
+      }
+      @media (max-width: 430px) {
+        .store-header {
+          padding: 0 16px;
+        }
+        .store-logo {
+          font-size: 0.88rem;
+          letter-spacing: 0.05em;
+        }
+        .store-nav {
+          margin-right: 10px;
+        }
+        .store-nav select {
+          min-width: 42px;
+          width: 42px;
+          padding: 11px 20px 11px 8px;
+          color: transparent;
+        }
+        .store-nav::after {
+          right: 8px;
+        }
+        .store-cart {
+          width: 38px;
+          height: 38px;
+        }
+        .store-hero {
+          padding: 48px 16px 52px;
+          gap: 26px;
+        }
+        .store-hero h1 {
+          margin-top: 12px;
+          font-size: clamp(3rem, 15vw, 3.7rem);
+        }
+        .store-copy {
+          font-size: 0.92rem;
+        }
+        .store-art,
+        .store-art img {
+          min-height: 205px;
+        }
+        .store-products {
+          padding: 0 16px 64px;
+        }
+        .store-heading {
+          margin-bottom: 18px;
+          padding-top: 17px;
+        }
+        .store-heading h2 {
+          font-size: 1.65rem;
+        }
+        .store-image {
+          aspect-ratio: 1 / 1.12;
+        }
+        .store-tag {
+          top: 8px;
+          left: 8px;
+          padding: 5px 6px;
+          font-size: 0.58rem;
+        }
+        .store-product h3 {
+          margin-top: 10px;
+          font-size: 1.05rem;
+          line-height: 1.1;
+        }
+        .store-price {
+          font-size: 0.8rem;
+        }
+        .store-add {
+          width: 32px;
+          height: 32px;
+        }
+        .store-drawer {
+          padding: 24px 16px;
+        }
+        .drawer-head {
+          padding-bottom: 20px;
+        }
+        .drawer-head h2 {
+          font-size: 1.75rem;
+        }
+        .drawer-item {
+          grid-template-columns: 64px minmax(0, 1fr) auto;
+          gap: 10px;
+        }
+        .drawer-item img {
+          width: 64px;
+          height: 76px;
+        }
+      }
+      @media (max-width: 340px) {
+        .store-grid {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .store-image {
+          aspect-ratio: 1 / 0.92;
+        }
+        .store-heading h2 {
+          font-size: 1.45rem;
+        }
+        .store-hero h1 {
+          font-size: 3rem;
+        }
+      }
+      @media (max-height: 520px) and (orientation: landscape) {
+        .store-hero {
+          grid-template-columns: 1fr 1fr;
+          min-height: auto;
+          padding-block: 42px;
+        }
+        .store-art,
+        .store-art img {
+          min-height: 210px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="store-header">
+      <a href="Menu.html" class="store-logo"><img src="IMAGES/Logo.jpg" alt="PV:A Store logo" />PV<span>:</span>A / STORE</a>
+      <nav class="store-nav" aria-label="Main navigation">
+        <select id="page-navigation" aria-label="Navigate to a page">
+          <option value="ecommerce.html" selected>Store</option>
+          <option value="Menu.html">Home</option>
+          <option value="About.html">About</option>
+          <option value="RA.html">News Today</option>
+          <option value="REPUBLICACTS.html">Republic Acts</option>
+          <option value="PT.html">Log in</option>
+        </select>
+      </nav>
+      <button
+        class="store-cart"
+        id="store-cart"
+        aria-label="Open shopping cart"
+      >
+        <i class="ri-shopping-bag-line"></i><span class="store-count">0</span>
+      </button>
+    </header>
+    <main>
+      <section class="store-hero">
+        <div>
+          <p class="store-eyebrow">Objects with a point of view</p>
+          <h1>Buy better.<br /><em>Stand taller.</em></h1>
+          <p class="store-copy">
+            Small-batch goods for people who believe everyday choices can make a
+            public statement.
+          </p>
+        </div>
+        <div class="store-art">
+          <img
+            src="IMAGES/Logo.jpg"
+            alt="Person wearing a bold red outfit"
+          />
+        </div>
+      </section>
+      <section class="store-products" aria-labelledby="store-products-title">
+        <div class="store-heading">
+          <h2 id="store-products-title">The current drop</h2>
+          <p>03 pieces / limited release</p>
+        </div>
+        <div class="store-grid">
+          <article
+            class="store-product"
+            data-name="People's Voices T-Shirt"
+            data-price="160"
+            data-image="IMAGES/780237747_2616255395496691_4460939310417230053_n.jpg"
+          >
+            <div class="store-image">
+              <img
+                src="IMAGES/780237747_2616255395496691_4460939310417230053_n.jpg"
+                alt="Sculptural red chair"
+              /><span class="store-tag">Iconic</span>
+            </div>
+            <h3>People's Voices T-Shirt</h3>
+            <div class="store-meta">
+              <span class="store-price">PHP 160</span
+              ><button
+                class="store-add"
+                aria-label="Add Pork Barrel Guy to cart"
+              >
+                <i class="ri-add-line"></i>
+              </button>
+            </div>
+          </article>
+          <article
+            class="store-product"
+            data-name="People's Voices Cap"
+            data-price="50"
+            data-image="IMAGES/780073796_2268475813915174_390587197384284445_n.jpg"
+          >
+            <div class="store-image">
+              <img
+                src="IMAGES/780073796_2268475813915174_390587197384284445_n.jpg"
+                alt="Red and white ceramic mugs"
+              /><span class="store-tag">Daily use</span>
+            </div>
+            <h3>People's Voices Cap</h3>
+            <div class="store-meta">
+              <span class="store-price">PHP 50</span
+              ><button
+                class="store-add"
+                aria-label="Add The People's Mug to cart"
+              >
+                <i class="ri-add-line"></i>
+              </button>
+            </div>
+          </article>
+          <article
+            class="store-product"
+            data-name="People's Voices Bag"
+            data-price="120"
+            data-image="IMAGES/779178727_2352804662217953_1662153777855850969_n.jpg"
+          >
+            <div class="store-image">
+              <img
+                src="IMAGES/779178727_2352804662217953_1662153777855850969_n.jpg"
+                alt="Canvas tote bag"
+              /><span class="store-tag">New</span>
+            </div>
+            <h3>People's Voices Bag</h3>
+            <div class="store-meta">
+              <span class="store-price">PHP 120</span
+              ><button
+                class="store-add"
+                aria-label="Add Civic Tote No. 01 to cart"
+              >
+                <i class="ri-add-line"></i>
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <aside class="store-drawer" aria-label="Shopping cart" aria-hidden="true">
+      <div class="drawer-head">
+        <h2>Your bag</h2>
+        <button
+          class="drawer-close"
+          id="store-cart-close"
+          aria-label="Close shopping cart"
+        >
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      <div class="drawer-body">
+        <p class="drawer-empty">Your bag is ready for a good idea.</p>
+      </div>
+      <div class="drawer-footer">
+        <div class="drawer-total">
+          <span>Total</span><span class="drawer-total-price">PHP 0</span>
+        </div>
+        <button class="drawer-buy">
+          Review Payment and address <i class="ri-arrow-right-line"></i>
+        </button>
+      </div>
+    </aside>
+
+    <header>
+      <a href="awakened" class="logo"><img src="IMAGES/Logo.jpg" alt="PV:A Store logo" />PV:A Store</a>
+      <div id="cart-icon">
+        <i class="ri-shopping-basket-line"></i>
+        <span class="cart-item-count"></span>
+      </div>
+    </header>
+
+    <div class="cart">
+      <h2 class="cart-title">Shopping Cart</h2>
+      <div class="cart-content">
+        <div class="cart-box">
+          <img src="pork.jfif" class="cart-img" />
+          <div class="cart-detail">
+            <h2 class="cart-product-title">Pork Barrel Guy</h2>
+            <span class="cart-price">100</span>
+            <div class="cart-quantity">
+              <button id="decrement">-</button>
+              <span class="number">1</span>
+              <button id="increment">+</button>
+            </div>
+          </div>
+          <i class="ri-delete-bin-line cart-remove"></i>
+        </div>
+      </div>
+      <div class="total">
+        <div class="total-title">Total:</div>
+        <div class="total-price">100</div>
+      </div>
+      <button class="btn-buy">Buy Now</button>
+      <i class="ri-close-line" id="cart-close"></i>
+    </div>
+    <section class="shop">
+      <h1 class="section-title">Products</h1>
+      <div class="product-content">
+        <div class="product-box">
+          <div class="img-box">
+            <img src="pork.jfif" />
+          </div>
+          <h2 class="product-title">Pork Barrel Guy</h2>
+          <div class="price-and-cart">
+            <span class="price">100</span>
+            <i class="ri-shopping-basket-line add-cart"></i>
+          </div>
+        </div>
+
+        <div class="product-box">
+          <div class="img-box">
+            <img src="pork.jfif" />
+          </div>
+          <h2 class="product-title">Pork Barrel Guy</h2>
+          <div class="price-and-cart">
+            <span class="price">100</span>
+            <i class="ri-shopping-basket-line add-cart"></i>
+          </div>
+        </div>
+
+        <div class="product-box">
+          <div class="img-box">
+            <img src="pork.jfif" />
+          </div>
+          <h2 class="product-title">Pork Barrel Guy</h2>
+          <div class="price-and-cart">
+            <span class="price">100</span>
+            <i class="ri-shopping-basket-line add-cart"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      const storeCart = document.querySelector("#store-cart");
+      const storeDrawer = document.querySelector(".store-drawer");
+      const drawerClose = document.querySelector("#store-cart-close");
+      const drawerBody = document.querySelector(".drawer-body");
+      const storeCount = document.querySelector(".store-count");
+      const drawerTotal = document.querySelector(".drawer-total-price");
+      const checkoutButton = document.querySelector(".drawer-buy");
+      const cartItems = new Map();
+      const pageNavigation = document.querySelector("#page-navigation");
+
+      pageNavigation.addEventListener("change", (event) => {
+        window.location.href = event.target.value;
+      });
+
+      function renderCart() {
+        const entries = [...cartItems.values()];
+        storeCount.textContent = entries.reduce(
+          (sum, item) => sum + item.quantity,
+          0,
+        );
+        drawerTotal.textContent = `PHP ${entries.reduce((sum, item) => sum + item.price * item.quantity, 0)}`;
+        drawerBody.innerHTML = entries.length
+          ? entries
+              .map(
+                (item) =>
+                  `<div class="drawer-item" data-name="${item.name}"><img src="${item.image}" alt="${item.name}" /><div class="drawer-detail"><h3>${item.name}</h3><p>PHP ${item.price}</p><div class="drawer-quantity"><button class="decrement" aria-label="Decrease quantity">-</button><span>${item.quantity}</span><button class="increment" aria-label="Increase quantity">+</button></div></div><button class="drawer-remove" aria-label="Remove ${item.name}"><i class="ri-delete-bin-line"></i></button></div>`,
+              )
+              .join("")
+          : '<p class="drawer-empty">Your bag is ready for a good idea.</p>';
+      }
+
+      document.querySelectorAll(".store-product").forEach((product) =>
+        product.querySelector(".store-add").addEventListener("click", () => {
+          const item = cartItems.get(product.dataset.name) || {
+            name: product.dataset.name,
+            price: Number(product.dataset.price),
+            image: product.dataset.image,
+            quantity: 0,
+          };
+          item.quantity += 1;
+          cartItems.set(item.name, item);
+          renderCart();
+        }),
+      );
+      drawerBody.addEventListener("click", (event) => {
+        const itemBox = event.target.closest(".drawer-item");
+        if (!itemBox) return;
+        const item = cartItems.get(itemBox.dataset.name);
+        if (event.target.closest(".increment")) item.quantity += 1;
+        if (event.target.closest(".decrement")) item.quantity -= 1;
+        if (event.target.closest(".drawer-remove") || item.quantity < 1)
+          cartItems.delete(itemBox.dataset.name);
+        renderCart();
+      });
+      checkoutButton.addEventListener("click", () => {
+        const entries = [...cartItems.values()];
+        if (!sessionStorage.getItem("currentUser")) {
+          alert("Please log in before ordering.");
+          window.location.href = "PT.html";
+          return;
+        }
+        if (!entries.length) {
+          alert("Your cart is empty. Add an item before checking out.");
+          return;
+        }
+        sessionStorage.setItem("pvaCheckoutCart", JSON.stringify(entries));
+        window.location.href = "checkout.html";
+      });
+      storeCart.addEventListener("click", () => {
+        storeDrawer.classList.add("active");
+        storeDrawer.setAttribute("aria-hidden", "false");
+      });
+      drawerClose.addEventListener("click", () => {
+        storeDrawer.classList.remove("active");
+        storeDrawer.setAttribute("aria-hidden", "true");
+      });
+      renderCart();
+    </script>
+  </body>
+</html>

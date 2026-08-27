@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky Menu</title>
+    <link rel="stylesheet" href="reveal.css" />
+    <script src="reveal.js" defer></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background: linear-gradient(#050505, #260d0d, #8e1313);
+        padding: 0;
+        min-height: 100vh;
+      }
+
+      .menu {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #160909;
+        color: #050505;
+        padding: 14px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+      }
+
+      .menu-logo {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .menu-logo img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+      }
+
+      .menu-links {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+      }
+
+      .menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+
+      .content {
+        padding: 24px;
+        max-width: 980px;
+        margin: 0 auto;
+        display: grid;
+        gap: 24px;
+      }
+
+      .feature-card {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+        cursor: pointer;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+      }
+
+      .feature-card:active {
+        transform: scale(0.98);
+      }
+
+      .feature-text {
+        flex: 1;
+        color: #ffffff;
+        min-width: 0;
+        overflow: hidden;
+        transition:
+          flex 0.8s ease,
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .feature-text h2 {
+        margin-bottom: 8px;
+        font-size: 1.5rem;
+      }
+
+      .feature-text p {
+        margin: 0;
+        color: #f5dede;
+        line-height: 1.6;
+      }
+
+      .comment-area {
+        margin-top: 18px;
+        text-align: left;
+      }
+
+      .comment-button,
+      .comment-form button {
+        border: 1px solid #ef766a;
+        border-radius: 3px;
+        background: transparent;
+        color: #ef766a;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 8px 12px;
+      }
+
+      .comment-button:hover,
+      .comment-form button:hover {
+        background: #610606;
+        color: #fff;
+      }
+
+      .comment-form {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .comment-form textarea {
+        flex: 1;
+        min-height: 38px;
+        resize: vertical;
+        border: 1px solid #6b4a49;
+        border-radius: 3px;
+        background: #28191a;
+        color: #fff;
+        font: inherit;
+        padding: 8px;
+      }
+
+      .comments-list {
+        display: grid;
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .comments-list p {
+        margin: 0;
+        padding: 8px 10px;
+        border-left: 2px solid #b90404;
+        background: rgba(0, 0, 0, 0.2);
+        color: #f5dede;
+        font-size: 0.9rem;
+      }
+
+      .feature-image {
+        flex: 1;
+        min-width: 220px;
+        transition:
+          flex 0.8s ease,
+          min-width 0.8s ease;
+      }
+
+      .feature-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        cursor: zoom-in;
+        transition: transform 0.8s ease;
+      }
+
+      .feature-card.image-expanded {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .feature-card.image-expanded .feature-text {
+        order: 2;
+        flex: 0 0 auto;
+        width: 100%;
+        max-height: 0;
+        margin-top: 24px;
+        opacity: 0;
+        transform: scale(0.75);
+        transition:
+          max-height 0.8s ease,
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .feature-card.image-expanded .feature-text.text-revealed {
+        max-height: 400px;
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .feature-card.image-expanded .feature-image {
+        order: 1;
+        flex: 0 0 auto;
+        min-width: 0;
+        width: 100%;
+      }
+
+      .feature-card.image-expanded .feature-image img {
+        transform: scale(1.08);
+        cursor: zoom-out;
+      }
+
+      @media (max-width: 768px) {
+        .menu {
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .menu-links {
+          flex-wrap: wrap;
+          gap: 8px 12px;
+        }
+
+        .feature-card {
+          flex-direction: column;
+        }
+
+        .comment-form {
+          flex-direction: column;
+        }
+
+        .feature-image {
+          width: 100%;
+        }
+
+        .content {
+          padding: 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .menu {
+          padding: 12px;
+        }
+
+        .content {
+          padding: 12px;
+          gap: 16px;
+        }
+
+        .feature-card {
+          padding: 12px;
+          gap: 14px;
+        }
+      }
+
+      .news-section {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 24px;
+        color: #ffffff;
+      }
+
+      .news-section h1 {
+        margin-bottom: 18px;
+        text-align: center;
+      }
+
+      .news-content {
+        display: grid;
+        gap: 18px;
+      }
+
+      .news-article {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 18px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+      }
+
+      .news-article img {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .news-article h2 {
+        margin-bottom: 6px;
+        font-size: 1.25rem;
+      }
+
+      .news-article p {
+        color: #f5dede;
+        margin-bottom: 8px;
+      }
+
+      .news-article a {
+        color: #ffd1d1;
+        font-weight: bold;
+      }
+
+      .news-status {
+        padding: 18px;
+        text-align: center;
+        color: #f5dede;
+      }
+
+      @media (max-width: 600px) {
+        .news-section {
+          padding: 16px 12px;
+        }
+
+        .news-article {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="menu">
+      <a class="menu-logo" href="Menu.html" aria-label="Home">
+        <img
+          alt="Site logo"
+          src="IMAGES/Logo.jpg"
+        />
+      </a>
+      <div class="menu-links">
+        <a href="Menu.html">Home</a>
+        <a href="About.html">About</a>
+        <a href="RA.html">News Today</a>
+        <a href="REPUBLICACTS.html">Republic Acts</a>s
+        <a href="ecommerce.html">Cart</a>
+        <a href="PT.html">Log in</a>
+      </div>
+    </nav>
+
+    <div id="newsContent" class="content" aria-live="polite">
+      <p class="news-status">Loading the latest Philippines politics news...</p>
+    </div>
+
+    <script>
+      const newsContent = document.getElementById("newsContent");
+      const COMMENTS_KEY = "articleComments";
+      const NEWS_INTERVAL = 15 * 60 * 1000;
+
+      function getComments() {
+        try {
+          return JSON.parse(localStorage.getItem(COMMENTS_KEY)) || {};
+        } catch (error) {
+          return {};
+        }
+      }
+
+      function getCurrentUser() {
+        try {
+          return JSON.parse(sessionStorage.getItem("currentUser"));
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function escapeHtml(value) {
+        return String(value || "").replace(
+          /[&<>'"]/g,
+          (character) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              "'": "&#39;",
+              '"': "&quot;",
+            })[character],
+        );
+      }
+
+      function renderNews(articles) {
+        const comments = getComments();
+        const articleKeys = new Set(
+          articles.slice(0, 10).map((article) => article.url),
+        );
+        Object.keys(comments).forEach((key) => {
+          if (!articleKeys.has(key)) delete comments[key];
+        });
+        localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
+
+        newsContent.innerHTML = articles
+          .slice(0, 10)
+          .map(
+            (article) => `
+        <article class="feature-card" data-article-key="${escapeHtml(article.url)}">
+          <div class="feature-text">
+            <h2>${escapeHtml(article.title)}</h2>
+            <p>${escapeHtml(article.description || "Read the full report for more details.")}</p>
+            <small>${escapeHtml(article.source?.name || "GNews")} | ${escapeHtml(new Date(article.publishedAt).toLocaleDateString())}</small><br>
+            <a href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">Read full article</a>
+            <div class="comment-area">
+              <button type="button" class="comment-button">Comment</button>
+              <form class="comment-form" hidden>
+                <textarea maxlength="500" placeholder="Write a comment..." required></textarea>
+                <button type="submit">Post comment</button>
+              </form>
+              <div class="comments-list">${(comments[article.url] || []).map((comment) => `<p><strong>${escapeHtml(comment.username)}</strong> ${escapeHtml(comment.text)}</p>`).join("")}</div>
+            </div>
+          </div>
+          <div class="feature-image">
+            <img src="${escapeHtml(article.image)}" alt="${escapeHtml(article.title)}">
+          </div>
+        </article>
+      `,
+          )
+          .join("");
+
+        newsContent.querySelectorAll(".feature-card").forEach((card) => {
+          const image = card.querySelector(".feature-image img");
+          const text = card.querySelector(".feature-text");
+          const textElements = [
+            text.querySelector("h2"),
+            text.querySelector("p"),
+          ];
+          const originalText = textElements.map(
+            (element) => element.textContent,
+          );
+          let typewriterTimers = [];
+
+          const commentButton = card.querySelector(".comment-button");
+          const commentForm = card.querySelector(".comment-form");
+          const commentsList = card.querySelector(".comments-list");
+
+          commentButton.addEventListener("click", () => {
+            if (!getCurrentUser()) {
+              alert("Please log in before commenting.");
+              window.location.href = "PT.html";
+              return;
+            }
+            commentForm.hidden = !commentForm.hidden;
+            if (!commentForm.hidden) commentForm.querySelector("textarea").focus();
+          });
+
+          commentForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const currentUser = getCurrentUser();
+            const text = commentForm.querySelector("textarea").value.trim();
+            if (!currentUser || !text) return;
+
+            const savedComments = getComments();
+            const articleKey = card.dataset.articleKey;
+            savedComments[articleKey] = savedComments[articleKey] || [];
+            savedComments[articleKey].push({ username: currentUser.username, text });
+            localStorage.setItem(COMMENTS_KEY, JSON.stringify(savedComments));
+            commentsList.insertAdjacentHTML(
+              "beforeend",
+              `<p><strong>${escapeHtml(currentUser.username)}</strong> ${escapeHtml(text)}</p>`,
+            );
+            commentForm.reset();
+            commentForm.hidden = true;
+          });
+
+          image.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const isExpanded = card.classList.toggle("image-expanded");
+
+            if (isExpanded) {
+              window.setTimeout(() => {
+                if (!card.classList.contains("image-expanded")) {
+                  return;
+                }
+
+                text.classList.add("text-revealed");
+                textElements.forEach((element, index) => {
+                  const value = originalText[index];
+                  element.textContent = "";
+                  value.split("").forEach((character, characterIndex) => {
+                    const timer = window.setTimeout(() => {
+                      element.textContent += character;
+                    }, characterIndex * 9);
+                    typewriterTimers.push(timer);
+                  });
+                });
+              }, 650);
+            } else {
+              typewriterTimers.forEach((timer) => window.clearTimeout(timer));
+              typewriterTimers = [];
+              text.classList.remove("text-revealed");
+              textElements.forEach((element, index) => {
+                element.textContent = originalText[index];
+              });
+            }
+          });
+        });
+      }
+
+      async function fetchNews() {
+        const endpoint = new URL("https://gnews.io/api/v4/search?apikey=12366c5a3d0fbd2b19d0abed28fc7af2&q=Philippines+politics&lang=en&max=10&country=ph&in=title,description,content&from=2026-01-26T00:00:00Z&to=2026-12-31T23:59:59Z");
+
+        try {
+          const response = await fetch(endpoint);
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(
+              data.errors?.join("; ") ||
+                `GNews request failed with status ${response.status}`,
+            );
+          }
+
+          if (!Array.isArray(data.articles) || data.articles.length === 0) {
+            throw new Error("No news articles were returned.");
+          }
+
+          renderNews(data.articles);
+        } catch (error) {
+          console.error("Failed to fetch GNews articles:", error);
+          const message =
+            error instanceof TypeError
+              ? "The browser blocked the request. Open this page through Live Server or another local web server, not directly as a file."
+              : `News could not be loaded: ${escapeHtml(error.message)}`;
+          newsContent.innerHTML = `<p class="news-status">${message}</p>`;
+        }
+      }
+
+      fetchNews();
+      setInterval(fetchNews, NEWS_INTERVAL);
+    </script>
+  </body>
+</html>
