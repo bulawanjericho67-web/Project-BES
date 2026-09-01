@@ -1,11 +1,26 @@
 <!doctype html>
-<html>
+<html data-theme="dark">
   <head>
     <title>My Login System</title>
     <link rel="stylesheet" href="Ptcss.css" />
     <link rel="stylesheet" href="reveal.css" />
+    <script src="theme-manager.js" defer></script>
+    <script src="access-control.js" defer></script>
     <script src="PTJS.js" defer></script>
     <script src="reveal.js" defer></script>
+    <style>
+      :root[data-theme="dark"] {
+        --bg-color: #050505;
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+      }
+
+      :root[data-theme="light"] {
+        --bg-color: #f5f5f5;
+        --text-primary: #1a1a1a;
+        --text-secondary: #333333;
+      }
+    </style>
   </head>
   <body class="bgcolor">
     <form class="logindes">

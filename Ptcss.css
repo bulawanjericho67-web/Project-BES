@@ -2,6 +2,24 @@
   box-sizing: border-box;
 }
 
+:root[data-theme="dark"] {
+  --bg-dark: #090909;
+  --form-bg: rgba(22, 14, 15, 0.94);
+  --text-color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.16);
+  --accent-color: #b90404;
+  --accent-dark: #3a0b0b;
+}
+
+:root[data-theme="light"] {
+  --bg-dark: #f5f5f5;
+  --form-bg: rgba(255, 255, 255, 0.98);
+  --text-color: #1a1a1a;
+  --border-color: rgba(0, 0, 0, 0.16);
+  --accent-color: #d63447;
+  --accent-dark: #b90404;
+}
+
 html,
 body {
   width: 100%;
@@ -17,20 +35,21 @@ body {
   background:
     radial-gradient(circle at 12% 12%, rgba(185, 4, 4, 0.2), transparent 28%),
     radial-gradient(circle at 88% 86%, rgba(112, 18, 18, 0.25), transparent 32%),
-    #090909;
+    var(--bg-dark);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  color: var(--text-color);
 }
 
 .logindes {
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--border-color);
   text-align: center;
   width: min(100%, 460px);
   padding: 38px 40px 28px;
-  background: rgba(22, 14, 15, 0.94);
+  background: var(--form-bg);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
   border-radius: 4px;
 }
@@ -39,12 +58,12 @@ body {
   display: inline-flex;
   gap: 2px;
   color: #fff4f2;
-  background: #b90404;
+  background: var(--accent-color);
   padding: 10px 11px 9px;
   font: bold 18px Georgia, serif;
   letter-spacing: -2px;
   transform: rotate(-5deg);
-  box-shadow: 5px 5px 0 #3a0b0b;
+  box-shadow: 5px 5px 0 var(--accent-dark);
 }
 
 .brandmark span:last-child {
@@ -52,7 +71,7 @@ body {
 }
 
 .eyebrow {
-  color: #ef766a;
+  color: var(--accent-color);
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 2px;
@@ -62,22 +81,23 @@ body {
 
 .logindes h1 {
   font: bold clamp(1.8rem, 4vw, 2.35rem) Georgia, serif;
-  color: #fff;
+  color: var(--text-color);
   margin: 0;
   letter-spacing: 0;
 }
 
 .intro {
-  color: #c7aaa7;
+  color: var(--text-color);
   margin: 10px 0 28px;
   font-size: 14px;
+  opacity: 0.8;
 }
 
 .formbuttons {
   width: 100%;
   font-size: 16px;
   font-weight: bold;
-  background: #b90404;
+  background: var(--accent-color);
   border: 0;
   border-radius: 3px;
   padding: 14px;
@@ -88,29 +108,31 @@ body {
     transform 0.2s ease,
     box-shadow 0.2s ease,
     background 0.2s ease;
-  box-shadow: 0 7px 0 #610606;
+  box-shadow: 0 7px 0 var(--accent-dark);
 }
 
 .formbuttons:hover {
   transform: translateY(-1px);
-  background: #d52a22;
+  background: var(--accent-color);
+  opacity: 0.9;
 }
 
 .verification {
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border-top: 1px solid var(--border-color);
   margin-top: 22px;
   padding-top: 18px;
 }
 
 .verification h2 {
-  color: #fff;
+  color: var(--text-color);
   font-size: 1.25rem;
   margin: 0 0 8px;
 }
 
 .verification p {
-  color: #ffe5e5;
+  color: var(--text-color);
   margin: 0 0 14px;
+  opacity: 0.8;
 }
 
 .code-field {
@@ -120,9 +142,10 @@ body {
 
 .code-field > label {
   display: block;
-  color: #c7aaa7;
+  color: var(--text-color);
   font-size: 14px;
   margin-bottom: 8px;
+  opacity: 0.8;
 }
 
 .code-inputs {
@@ -141,17 +164,17 @@ body {
 .send-code-button {
   flex: 0 0 auto;
   padding: 13px 14px;
-  border: 1px solid #ef766a;
+  border: 1px solid var(--accent-color);
   border-radius: 3px;
   background: transparent;
-  color: #ef766a;
+  color: var(--accent-color);
   cursor: pointer;
   font-weight: bold;
   white-space: nowrap;
 }
 
 .send-code-button:hover {
-  background: #610606;
+  background: var(--accent-dark);
   color: #fff;
 }
 
@@ -159,16 +182,16 @@ body {
   width: 100%;
   min-width: 0;
   padding: 12px 4px;
-  border: 1px solid #6b4a49;
+  border: 1px solid var(--border-color);
   border-radius: 3px;
-  background: #28191a;
-  color: #fff;
+  background: var(--form-bg);
+  color: var(--text-color);
   font-size: 22px;
   text-align: center;
 }
 
 .code-input:focus {
-  border-color: #ef766a;
+  border-color: var(--accent-color);
   outline: none;
   box-shadow: 0 0 0 2px rgba(239, 118, 106, 0.2);
 }
@@ -184,18 +207,18 @@ body {
   width: 100%;
   padding: 18px 16px 12px;
   font-size: 17px;
-  border: 1px solid #6b4a49;
+  border: 1px solid var(--border-color);
   border-radius: 3px;
   outline: none;
-  background-color: #28191a;
-  color: #fff;
+  background-color: var(--form-bg);
+  color: var(--text-color);
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .Field input:focus {
-  border-color: #ef766a;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 2px rgba(239, 118, 106, 0.2);
 }
 
@@ -208,13 +231,14 @@ body {
   left: 16px;
   top: 18px;
   font-size: 17px;
-  color: #c7aaa7;
+  color: var(--text-color);
+  opacity: 0.6;
   pointer-events: none;
   transition:
     top 0.2s ease,
     font-size 0.2s ease,
     color 0.2s ease;
-  background: #28191a;
+  background: var(--form-bg);
   padding: 0 4px;
 }
 
@@ -222,11 +246,12 @@ body {
 .Field input:not(:placeholder-shown) + label {
   top: -6px;
   font-size: 11px;
-  color: #ef766a;
+  color: var(--accent-color);
+  opacity: 1;
 }
 
 .forgotpass {
-  color: #ef766a;
+  color: var(--accent-color);
   text-decoration: none;
 }
 
@@ -243,7 +268,8 @@ body {
 .forgotpass-wrap label {
   position: static;
   background: transparent;
-  color: #c7aaa7;
+  color: var(--text-color);
+  opacity: 0.7;
   font-size: 16px;
   padding: 0;
   margin: 0;
@@ -253,7 +279,8 @@ body {
   display: flex;
   justify-content: center;
   gap: 6px;
-  color: #c7aaa7;
+  color: var(--text-color);
+  opacity: 0.7;
   font-size: 14px;
   margin-top: 26px;
 }
@@ -261,7 +288,7 @@ body {
 .register-link {
   background: none;
   border: 0;
-  color: #ef766a;
+  color: var(--accent-color);
   cursor: pointer;
   font: inherit;
   padding: 0;
@@ -270,14 +297,15 @@ body {
 }
 
 .secure-note {
-  color: #8f706e;
+  color: var(--text-color);
+  opacity: 0.5;
   font-size: 11px;
   letter-spacing: 0.5px;
   margin: 28px 0 0;
 }
 
 .secure-note span {
-  color: #d52a22;
+  color: var(--accent-color);
   font-size: 9px;
   margin-right: 4px;
 }

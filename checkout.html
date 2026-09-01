@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,16 +11,45 @@
     />
     <title>Review Payment and Address | PV:A Store</title>
     <link rel="stylesheet" href="reveal.css" />
+    <script src="theme-manager.js" defer></script>
     <script src="reveal.js" defer></script>
     <style>
       :root {
-        --red: #b90404;
-        --deep-red: #260d0d;
-        --ink: #171717;
-        --muted: #f5dede;
-        --line: rgba(255, 255, 255, 0.32);
+        --bg-gradient: linear-gradient(#050505, #260d0d, #8e1313);
+        --menu-bg: #160909;
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+        --border-color: rgba(255, 255, 255, 0.2);
+        --card-bg: rgba(255, 255, 255, 0.08);
+        --card-border: rgba(255, 255, 255, 0.15);
+        --button-color: #ef766a;
+        --button-hover: #610606;
         --serif: "Fraunces", Georgia, serif;
         --sans: "DM Sans", Arial, sans-serif;
+      }
+
+      :root[data-theme="dark"] {
+        --bg-gradient: linear-gradient(#050505, #260d0d, #8e1313);
+        --menu-bg: #160909;
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+        --border-color: rgba(255, 255, 255, 0.2);
+        --card-bg: rgba(255, 255, 255, 0.08);
+        --card-border: rgba(255, 255, 255, 0.15);
+        --button-color: #ef766a;
+        --button-hover: #610606;
+      }
+
+      :root[data-theme="light"] {
+        --bg-gradient: linear-gradient(#f5f5f5, #ffe8e8, #fff0f0);
+        --menu-bg: #ffffff;
+        --text-primary: #1a1a1a;
+        --text-secondary: #333333;
+        --border-color: rgba(0, 0, 0, 0.15);
+        --card-bg: rgba(0, 0, 0, 0.04);
+        --card-border: rgba(0, 0, 0, 0.1);
+        --button-color: #d63447;
+        --button-hover: #b90404;
       }
       * {
         box-sizing: border-box;
@@ -30,8 +59,8 @@
       body {
         min-width: 0;
         overflow-x: hidden;
-        background: linear-gradient(#050505, #260d0d, #8e1313);
-        color: #ffffff;
+        background: var(--bg-gradient);
+        color: var(--text-primary);
         font-family: var(--sans);
       }
       .checkout-header {
@@ -44,7 +73,7 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        color: #ffffff;
+        color: var(--text-primary);
         font-size: 1rem;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -54,27 +83,27 @@
         width: 42px;
         height: 42px;
         object-fit: cover;
-        border: 2px solid #ffffff;
+        border: 2px solid var(--text-primary);
         border-radius: 50%;
       }
       .checkout-logo span {
-        color: #ffb1a8;
+        color: var(--button-color);
       }
       .back-link {
-        color: #ffffff;
+        color: var(--text-primary);
         font-size: 0.8rem;
         font-weight: 700;
         text-decoration: none;
       }
       .back-link:hover {
-        color: #ffb1a8;
+        color: var(--button-color);
       }
       main {
         width: min(1120px, calc(100% - 40px));
         margin: 30px auto 80px;
       }
       .eyebrow {
-        color: #ffb1a8;
+        color: var(--button-color);
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 0.18em;
@@ -94,8 +123,8 @@
       }
       .checkout-panel {
         padding: clamp(22px, 4vw, 42px);
-        background: rgba(0, 0, 0, 0.28);
-        border: 1px solid var(--line);
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
       }
       .checkout-panel h2 {
         margin-bottom: 24px;
@@ -115,21 +144,21 @@
         grid-column: 1 / -1;
       }
       label {
-        color: var(--muted);
+        color: var(--text-secondary);
         font-size: 0.78rem;
         font-weight: 600;
       }
       input {
         width: 100%;
         padding: 13px 12px;
-        border: 1px solid rgba(255, 255, 255, 0.42);
+        border: 1px solid var(--border-color);
         border-radius: 3px;
-        background: rgba(255, 255, 255, 0.96);
-        color: var(--ink);
+        background: var(--card-bg);
+        color: var(--text-primary);
         font: inherit;
       }
       input:focus {
-        outline: 2px solid #ffb1a8;
+        outline: 2px solid var(--button-color);
         outline-offset: 2px;
       }
       .place-order {
@@ -137,13 +166,13 @@
         margin-top: 8px;
         padding: 15px;
         border: 0;
-        background: #ffffff;
-        color: var(--deep-red);
+        background: var(--button-color);
+        color: #ffffff;
         font-weight: 700;
         cursor: pointer;
       }
       .place-order:hover {
-        background: #ffb1a8;
+        background: var(--button-hover);
       }
       .order-list {
         display: grid;
